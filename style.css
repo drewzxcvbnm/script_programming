@@ -1,0 +1,8 @@
+* {
+	font-family: "serif", "Georgia";
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
