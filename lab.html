@@ -9,13 +9,63 @@ thead {
 	background-color: white;
 }
 
+form input[type=text] {
+	width: 20em;
+}
+
 #content {
 	padding: 30px;
+}
+
+@media screen and (min-width: 700px) {
+	#anvilimg {
+		float:right;
+		margin:2cm;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	* {
+		font-size: 0.998em;
+	}
+	#anvilimg {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	h1, h2, h3 {
+		text-align:center;
+	}
+	form {
+		display: flex;
+		justify-content:center;
+	}
+	form > div {
+		display: inline-block;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	* {
+		font-size: 0.98em;
+	}
+
+	form input[type=text] {
+		width: 90%;
+		min-width: 15em;
+	}
+}
+
+@media screen and (max-width: 500px) {
+
+	#prospects {
+		display:none;
+	}
 }
 </style>
 </head>
 <body>
-	<img style="float:right;margin:2cm" alt="Anvil" src="img.png" width=200>
+	<img id="anvilimg" alt="Anvil" src="img.png" width=200>
 	<div id="content">
 	<article id="start">
 		<header>
@@ -80,6 +130,7 @@ thead {
 			<h2>Sign Up for Seminars</h2>
 
 			<form>
+				<div>
 				<input class="fname" type="text" name="name" placeholder="Full name"><br><br>
 				<input type="text" name="name" placeholder="Email"><br><br>
 				<input type="text" name="name" placeholder="Phone number"><br><br>
@@ -90,6 +141,7 @@ thead {
           		  <option value="certificate">Certification Prep</option>
 				</select><br><br>
 				<input type="submit" value="Submit">
+				</div>
 			</form>
 		</section>
 	</article>
