@@ -131,11 +131,11 @@ form input[type=text] {
 
 			<form>
 				<div>
-				<input class="fname" type="text" name="name" placeholder="Full name"><br><br>
-				<input type="text" name="name" placeholder="Email"><br><br>
-				<input type="text" name="name" placeholder="Phone number"><br><br>
-          		<select>
-          		  <option value="course-type" selected>Course type*</option>
+				<input required pattern="^([A-Z][a-z]+( |))+$" title="Please write your full name, properly capitalized." class="fname" type="text" name="name" placeholder="Full name"><br><br>
+				<input required pattern="^\w+@\w+\.\w+$" type="text" name="name" placeholder="Email"><br><br>
+				<input required pattern="^(\+|)(\d| )+$" type="text" name="name" placeholder="Phone number"><br><br>
+          		<select name="course-type" required>
+          		  <option value="" selected>Course type*</option>
           		  <option value="short-courses">Short courses</option>
           		  <option value="featured-courses">Featured courses</option>
           		  <option value="certificate">Certification Prep</option>
@@ -151,6 +151,7 @@ form input[type=text] {
 <a href="#start">Start</a> |
 <a href="#tools">Tools</a> |
 <a href="#form">Seminar Form</a> |
+<a href="calculator.html">Calculator</a> 
 </nav>
 <footer>
   <p>Author: Drew Stevens</p>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Blacksmithing incorporated - calculator</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.row {
+	display: flex;
+}
+
+.row button {
+	margin: 5px;
+	width:25%;
+	height:25px;
+}
+
+#calc {
+	width: 250px;
+	margin:0 auto;
+	margin-top: 10%;
+}
+</style>
+</head>
+<body>
+<div id="calc">
+	<input id="calcinp" style="width:100%;margin-bottom:10px">
+	<div class="row">
+	<button id="1" onclick="addCharacter('1')">1</button>
+	<button id="2" onclick="addCharacter('2')">2</button>
+	<button id="3" onclick="addCharacter('3')">3</button>
+	<button id="+" onclick="addCharacter('+')">+</button>
+	</div>
+	
+	<div class="row">
+	<button id="4" onclick="addCharacter('4')">4</button>
+	<button id="5" onclick="addCharacter('5')">5</button>
+	<button id="6" onclick="addCharacter('6')">6</button>
+	<button id="-" onclick="addCharacter('-')">-</button>
+	</div>
+	
+	<div class="row">
+	<button id="7" onclick="addCharacter('7')">7</button>
+	<button id="8" onclick="addCharacter('8')">8</button>
+	<button id="9" onclick="addCharacter('9')">9</button>
+	<button id="x" onclick="addCharacter('*')">x</button>
+	</div>
+	
+	<div class="row">
+	<button id="C" onclick="clearInp()">C</button>
+	<button id="0" onclick="addCharacter('0')">0</button>
+	<button id="=" onclick="evalMath()">=</button>
+	<button id="/" onclick="addCharacter('/')">/</button>
+	</div>
+</div>
+</body>
+<script>
+	evaled = false
+
+	function clearInp() {
+		inp = document.getElementById("calcinp")
+		inp.value = ''
+	}
+
+	function addCharacter(ch) {
+		if(evaled) {
+			evaled = false
+			if(['*','-','/','+'].indexOf(ch) === -1) {
+				clearInp()
+			}
+		}
+		inp = document.getElementById("calcinp")
+		if(inp.value==='' && ['*','-','/','+'].indexOf(ch)>=0) {
+			return
+		}
+		inp.value += ch
+	}
+
+	function evalMath() {
+		inp = document.getElementById("calcinp")
+		inp.value = eval(inp.value)
+		evaled = true
+	}
+</script>
+</html>
