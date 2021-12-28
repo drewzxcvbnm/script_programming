@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Blacksmithing incorporated - calculator</title>
+<link rel="stylesheet" href="style.css">
+<style>
+#clock {
+	font-size: 20px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+<script>
+/**
+* Function to draw rectangle where x,y denote lower middle point
+*/
+class DrawingService {
+	
+	constructor(ctx) {
+		this.ctx = ctx;
+	}
+
+	makeRect(x,y,w,h) {
+		x-=w/2
+		y-=h
+		this.ctx.fillRect(x,y,w,h)
+	}
+	
+	rotateFrom(x,y,angle) {
+		this.ctx.translate(x,y);
+		this.ctx.rotate(angle * Math.PI / 180);
+		this.ctx.translate(-x,-y);
+	}
+
+}
+
+class ClockDrawingService {
+
+	constructor(ctx, center, radius) {
+		this.ctx = ctx;
+		this.ds = new DrawingService(ctx);
+		this.x_center = center[0];
+		this.y_center = center[1];
+		this.radius = radius;
+		this.current_seconds_arrow = null;
+	}
+
+	drawClock() {
+		this.ctx.beginPath()
+		var radius = this.radius;
+		var now = new Date();
+		this.ctx.arc(150, 150, radius, 0, 2*Math.PI);
+		this.ctx.fillRect(148,148,4,4); // fill in the pixel at (10,10)
+		this.ctx.textBaseline = "middle";
+		this.ctx.font = "15px Arial";
+		for(var angle=0;angle<360;angle+=30) {
+			var txt = angle/30 + ""
+			if(txt == "0") {
+				txt = "12";
+			}
+			var x = Math.sin(angle * Math.PI / 180) * radius;
+			var y = Math.cos(angle * Math.PI / 180) * radius;
+			var w = this.ctx.measureText(txt).width
+			var h = this.ctx.measureText(txt).height
+			var dist = 0.9;
+			var finy = (150 - y*dist);
+			var finx = (150 + x*dist)-w/2;
+			console.log(`(${finx},${finy})=${txt}`)
+			this.ctx.fillText(txt, finx, finy+2);
+		}
+		this.drawSecondsArrow(now.getSeconds())
+		this.drawMinutesArrow(now.getMinutes())
+		this.drawHoursArrow(now.getHours())
+		this.ctx.stroke();
+		this.ctx.closePath()
+	}
+	
+	drawSecondsArrow(sec) {
+		var angle = 360/60 * sec
+		this.ds.rotateFrom(this.x_center,this.y_center, angle);
+		this.ds.makeRect(this.x_center,this.y_center,2,80)
+		this.ds.rotateFrom(this.x_center,this.y_center, -angle);
+	}
+
+	drawMinutesArrow(min) {
+		var angle = 360/60 * min
+		this.ds.rotateFrom(this.x_center,this.y_center, angle);
+		this.ds.makeRect(this.x_center,this.y_center,3,70)
+		this.ds.rotateFrom(this.x_center,this.y_center, -angle);
+	}
+	
+	drawHoursArrow(hr) {
+		var angle = 360/12 * hr
+		this.ds.rotateFrom(this.x_center,this.y_center, angle);
+		this.ds.makeRect(this.x_center,this.y_center,5,50)
+		this.ds.rotateFrom(this.x_center,this.y_center, -angle);
+	}
+	
+}
+
+$(function() {
+	var c = $("#clock")[0]
+	var ctx = c.getContext("2d");
+	ctx.imageSmoothingEnabled = true;
+	var ds = new ClockDrawingService(ctx,[150,150],100);
+	setInterval(function() {
+		ctx.clearRect(0,0,300,300);
+		ds.drawClock();
+	},1000)
+	
+})
+</script>
+</head>
+<body>
+	<canvas id="clock" width="300" height="300" style="border:1px solid #d3d3d3;">
+		Browser does not support the HTML5 canvas tag.
+	</canvas>
+</body>
+</html>
