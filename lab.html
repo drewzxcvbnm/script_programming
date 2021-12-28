@@ -63,6 +63,82 @@ form input[type=text] {
 	}
 }
 </style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"></script>
+
+<script>
+	$(function() {
+		$('.accordion').accordion({
+			collapsible: true,
+			active: false
+		})
+	})
+</script>
+<style>
+.accordion {
+	margin: 1rem 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid #e5e5e5;
+}
+
+.accordion-item {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.accordion-thumb {
+	margin: 0;
+	padding: .8rem 0;
+	cursor: pointer;
+	font-weight: normal;
+
+	&::before {
+		content: '';
+		display: inline-block;
+		height: 7px;
+		width: 7px;
+		margin-right: 1rem;
+		margin-left: .5rem;
+		vertical-align: middle;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
+		transform: rotate(-45deg);
+		transition: transform .2s ease-out;
+	}
+}
+
+.accordion-panel {
+	margin: 0;
+	padding-bottom: .8rem;
+	display: none;
+}
+
+.accordion-item.is-active {
+	.accordion-thumb::before {
+		transform: rotate(45deg);
+	}
+}
+
+html {
+	font-family: sans-serif;
+	font-size: 14px;
+	color: #444;
+}
+
+body {
+	line-height: 1.5;
+}
+
+h1 {
+	font-family: serif;
+	margin-top: 5%;
+	font-size:2em;
+}
+</style>
 </head>
 <body>
 	<img id="anvilimg" alt="Anvil" src="img.png" width=200>
@@ -75,11 +151,34 @@ form input[type=text] {
 		<section id="tools">
 			<h2>The blacksmith toolset</h2>
 			Every blacksmith needs the proper equipment to work right:
-			<ul>
-				<li>Hammer</li>
-				<li>Anvil</li>
-				<li>Vices</li>
-				<li>Tongs</li>
+
+			<ul class="accordion">
+				<li class="accordion-item is-active">
+					<h3 class="accordion-thumb">Hammer</h3>
+					<p class="accordion-panel">
+					A tool with a heavy metal head mounted at right angles at the end of a handle, used for jobs such as breaking things and driving in nails
+					</p>
+				</li>
+
+				<li class="accordion-item">
+					<h3 class="accordion-thumb">Anvil</h3>
+					<p class="accordion-panel">
+					A heavy iron block with a flat top and concave sides, on which metal can be hammered and shaped.
+					</p>
+				</li>
+
+				<li class="accordion-item">
+					<h3 class="accordion-thumb">Vices</h3>
+					<p class="accordion-panel">
+					A metal tool with movable jaws which are used to hold an object firmly in place while work is done on it, typically attached to a workbench.
+					</p>
+				</li>
+				<li class="accordion-item">
+					<h3 class="accordion-thumb">Tongs</h3>
+					<p class="accordion-panel">
+					An instrument with two movable arms that are joined at one end, used for picking up and holding things.
+					</p>
+				</li>
 			</ul>
 			You acquire these tools at this link: <a href="www.blacktools.come">blacktools.com</a>
 			<aside>
